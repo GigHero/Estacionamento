@@ -17,11 +17,19 @@
 
     </head>
     <body>
+      <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container d-flex justify-content-between">
+          <a href="#" class="navbar-brand d-flex align-items-center">
+            <i class="fas fa-car"></i>          
+            <strong>Estacionamento</strong>
+          </a>
+        </div>
+      </div>
       <div class="container-fluid">
         <!-- ENVIO DA PLACA--> 
         <div class="mt-3">  
             <div class="row justify-content-md-center"> 
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="card">
                         <div class="card-header">
                             Estacionamento
@@ -37,7 +45,7 @@
                                 <label for="exampleInputHora">Hora</label>
                                 <input type="text" class="form-control" name="entrada_h" value="{{date('h:i')}}">
                               </div>
-                              <button type="submit" class="btn btn-primary" name="enviar">Enviar</button>
+                              <button type="submit" class="btn btn-primary col-md-2" name="enviar">Enviar</button>
                             </form>
                         </div>
                     </div>
@@ -46,8 +54,8 @@
         </div>  
         <!-- ENVIO DA PLACA-->
         <div class="row justify-content-md-center">
-          <div class="table-responsive col-md-8">
-            <table class="table table-bordered mt-3">
+          <div class="table-responsive col-md-9">
+            <table class="table table-bordered table-striped table-sm mt-3">
               <thead>
                 <tr>
                   <th scope="col">Placa</th>
@@ -59,11 +67,11 @@
                 @foreach (\App\entrada::all() as $entrada)
                 @if(!isset($entrada->saida_h))
                 <tr>
-                  <th>{{$entrada->placa}}</th>
-                  <td>{{$entrada->entrada_h}}</td>
-                  <td>        
+                  <th class="align-middle">{{$entrada->placa}}</th>
+                  <td class="align-middle">{{$entrada->entrada_h}}</td>
+                  <td align="center">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{$entrada->id}}">
+                    <button type="button" class="btn btn-primary col-md-5"  data-toggle="modal" data-target="#exampleModal{{$entrada->id}}">
                       Finalizar
                     </button>
                     <!-- Modal -->
@@ -115,10 +123,16 @@
           <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
           Relatorio
           </a>
+          <a class="btn btn-primary" data-toggle="collapse" href="#relatorio_semana" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Relatorio semana
+          </a>
+          <a class="btn btn-primary" data-toggle="collapse" href="#relatorio_mes" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Relatorio semana
+          </a>
         </p>
         <div class="collapse col-md-8" id="collapseExample">
-          <div class="card card-body">
-            <table class="table table-bordered">
+          <div class="card card-body"> 
+            <table class="table table-bordered table-striped table-sm">
               <thead>
                 <tr>
                   <th scope="col">Placa</th>
@@ -139,6 +153,52 @@
           </div>
         </div>
         <!-- Relatorios -->
+        <div class="collapse col-md-8" id="relatorio_semana">
+          <div class="card card-body">
+            <table class="table table-bordered table-striped table-sm">
+              <thead>
+                <tr>
+                  <th scope="col">Placa</th>
+                  <th scope="col">Entrada</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach (\App\entrada::all() as $entrada)
+                @if(!isset($entrada->saida_h))
+                <tr>
+                  <th>{{$entrada->placa}}</th>
+                  <td>{{$entrada->entrada_h}}</td>
+                </tr>
+                @endif
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
+        <!-- Relatorios -->
+        <div class="collapse col-md-8" id="relatorio_mes">
+          <div class="card card-body">
+            <table class="table table-bordered table-striped table-sm">
+              <thead>
+                <tr>
+                  <th scope="col">Placa</th>
+                  <th scope="col">Entrada</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach (\App\entrada::all() as $entrada)
+                @if(!isset($entrada->saida_h))
+                <tr>
+                  <th>{{$entrada->placa}}</th>
+                  <td>{{$entrada->entrada_h}}</td>
+                </tr>
+                @endif
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>      
     </body>
 </html>
